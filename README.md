@@ -1,2 +1,5 @@
-# Ahmad-Raza-Automation-Portfolio
-Professional Portfolio showcasing Python Automation, Web Scraping &amp; Projects
+# Ahmad Raza - Automation Portfolio
+
+Professional showcase of automation and scraping projects.
+
+Live Portfolio: https://ahmadraza-automation.github.io/Ahmad-Raza-Automation-Portfolio/
