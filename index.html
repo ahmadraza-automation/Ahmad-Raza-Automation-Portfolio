@@ -4,30 +4,642 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahmad Raza | Python Automation Engineer</title>
+    <meta name="description" content="Python Automation Engineer specializing in Playwright, Selenium, and Web Scraping. Building reliable automation solutions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; color: #333; }
-        header { background: #0d6efd; color: white; padding: 3rem; text-align: center; }
-        .container { max-width: 1100px; margin: 2rem auto; padding: 1rem; }
-        .project { background: white; margin: 1.5rem 0; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        img { max-width: 100%; border-radius: 8px; }
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --border: #2a2a3a;
+            --text: #e8e8ed;
+            --text-muted: #9898a8;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.25);
+            --green: #22c55e;
+            --orange: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background gradient orbs */
+        .bg-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -150px;
+            right: -100px;
+        }
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #8b5cf6;
+            bottom: 20%;
+            left: -150px;
+            opacity: 0.25;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo span {
+            color: var(--accent-light);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-light);
+        }
+        .nav-cta {
+            background: var(--accent);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .nav-cta:hover {
+            background: var(--accent-light);
+            color: white !important;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .hero-content {
+            max-width: 700px;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: var(--accent-light);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 3.75rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-light), #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+            background: rgba(99, 102, 241, 0.08);
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: left;
+        }
+        .stat-num {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Sections */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-header {
+            margin-bottom: 3rem;
+        }
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .about-text p strong {
+            color: var(--text);
+        }
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .skill-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+        .skill-tag:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-light);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .project-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        .project-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        .project-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: 1.25rem;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--accent-light);
+        }
+        .project-link {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: gap 0.2s;
+        }
+        .project-link:hover {
+            gap: 0.6rem;
+        }
+
+        /* Contact */
+        .contact-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-box h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .contact-box p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .contact-link:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                padding: 7rem 1.25rem 3rem;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            section {
+                padding: 3.5rem 1.25rem;
+            }
+            .contact-box {
+                padding: 2rem 1.5rem;
+            }
+            .hero-stats {
+                gap: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Ahmad Raza</h1>
-        <p>Python Automation Engineer | Web Scraping | Playwright Expert</p>
-    </header>
-    <div class="container">
-        <h2>My Projects</h2>
-        <div class="project">
-            <h3>ATM Machine Simulation</h3>
-            <p>Clean Python console app with error handling.</p>
-            <img src="https://via.placeholder.com/800x400?text=ATM+Demo+Screenshot" alt="ATM Demo">
-            <p><a href="https://github.com/ahmadraza-automation/ATM-Machine-Simulation">View Repo →</a></p>
-        </div>
-        <!-- Add more projects similarly -->
-        <h2>Demo Videos</h2>
-        <p>Video demos will be embedded here (YouTube/Loom links).</p>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
     </div>
+
+    <nav>
+        <a href="#" class="logo">Ahmad<span>.</span>Raza</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Available for opportunities
+            </div>
+            <h1>Hi, I'm <span class="highlight">Ahmad Raza</span></h1>
+            <p class="hero-desc">
+                Python Automation Engineer specializing in <strong style="color: var(--text)">Playwright</strong>, 
+                <strong style="color: var(--text)">Selenium</strong> & <strong style="color: var(--text)">Web Scraping</strong>. 
+                I build reliable, fast and maintainable automation solutions.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects →</a>
+                <a href="https://github.com/ahmadraza-automation" target="_blank" class="btn btn-secondary">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">7+</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">Python</div>
+                    <div class="stat-label">Primary Stack</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">Playwright</div>
+                    <div class="stat-label">Expert</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header">
+            <span class="section-tag">// about</span>
+            <h2 class="section-title">Who I Am</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    I'm a <strong>Python Automation Engineer</strong> based in Pakistan. I specialize in building 
+                    robust web scrapers and browser automation tools using <strong>Playwright</strong> and <strong>Selenium</strong>.
+                </p>
+                <p>
+                    My focus is on creating <strong>reliable, fast and maintainable</strong> solutions — from 
+                    job scrapers and lead generation tools to volunteering opportunity extractors with full pagination support.
+                </p>
+                <p>
+                    I love clean code, proper error handling, and turning messy websites into structured data.
+                </p>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Tech Stack</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Playwright</span>
+                    <span class="skill-tag">Selenium</span>
+                    <span class="skill-tag">Web Scraping</span>
+                    <span class="skill-tag">Pandas</span>
+                    <span class="skill-tag">Asyncio</span>
+                    <span class="skill-tag">CSV / Data Export</span>
+                    <span class="skill-tag">HTML / CSS</span>
+                    <span class="skill-tag">Git & GitHub</span>
+                    <span class="skill-tag">Error Handling</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <span class="section-tag">// projects</span>
+            <h2 class="section-title">Featured Work</h2>
+        </div>
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <div class="project-icon">🌐</div>
+                <h3>Playwright Web Scraper</h3>
+                <p>Async Playwright scraper with automatic pagination for volunteering opportunities. Extracts structured data and saves to CSV.</p>
+                <div class="project-tags">
+                    <span class="tag">Playwright</span>
+                    <span class="tag">Async</span>
+                    <span class="tag">Pandas</span>
+                </div>
+                <a href="https://github.com/ahmadraza-automation/playwright-web-scraper" target="_blank" class="project-link">View Repo →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">💼</div>
+                <h3>LinkedIn Marketing Leads Scraper</h3>
+                <p>Playwright-based async scraper to extract Marketing Manager leads from LinkedIn. Supports manual login, auto-scrolling & CSV export.</p>
+                <div class="project-tags">
+                    <span class="tag">Playwright</span>
+                    <span class="tag">LinkedIn</span>
+                    <span class="tag">Leads</span>
+                </div>
+                <a href="https://github.com/ahmadraza-automation/LinkedIn-Marketing-Leads-Scraper" target="_blank" class="project-link">View Repo →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🔍</div>
+                <h3>Indeed Python Job Scraper</h3>
+                <p>Playwright scraper that extracts Python Developer jobs from Indeed and exports them cleanly to CSV.</p>
+                <div class="project-tags">
+                    <span class="tag">Playwright</span>
+                    <span class="tag">Indeed</span>
+                    <span class="tag">Jobs</span>
+                </div>
+                <a href="https://github.com/ahmadraza-automation/indeed-python-job-scraper" target="_blank" class="project-link">View Repo →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🏧</div>
+                <h3>ATM Machine Simulation</h3>
+                <p>Clean Python console app simulating an ATM with balance check, withdraw, deposit and solid error handling.</p>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">CLI</span>
+                    <span class="tag">Error Handling</span>
+                </div>
+                <a href="https://github.com/ahmadraza-automation/ATM-Machine-Simulation" target="_blank" class="project-link">View Repo →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">📊</div>
+                <h3>Volunteer Opportunities Data</h3>
+                <p>Structured CSV dataset of volunteer opportunities in Australia (Northern Territory) generated via scraping.</p>
+                <div class="project-tags">
+                    <span class="tag">CSV</span>
+                    <span class="tag">Data</span>
+                    <span class="tag">Australia</span>
+                </div>
+                <a href="https://github.com/ahmadraza-automation/Volunteer-Opportunities-Data" target="_blank" class="project-link">View Repo →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">❤️</div>
+                <h3>Welfare Website</h3>
+                <p>Modern welfare platform concept to connect donors, volunteers and people in need. Manage donations & campaigns.</p>
+                <div class="project-tags">
+                    <span class="tag">Web</span>
+                    <span class="tag">Community</span>
+                    <span class="tag">Concept</span>
+                </div>
+                <a href="https://github.com/ahmadraza-automation/Welfare-Website" target="_blank" class="project-link">View Repo →</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-box">
+            <h2>Let's Work Together</h2>
+            <p>Looking for an automation engineer or need a reliable scraper built? Reach out!</p>
+            <div class="contact-links">
+                <a href="mailto:arjafri347@gmail.com" class="contact-link">
+                    ✉️ Email
+                </a>
+                <a href="https://github.com/ahmadraza-automation" target="_blank" class="contact-link">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Ahmad Raza · Built with ❤️ · <a href="https://github.com/ahmadraza-automation/Ahmad-Raza-Automation-Portfolio" style="color: var(--accent-light); text-decoration: none;">Source</a></p>
+    </footer>
 </body>
 </html>
