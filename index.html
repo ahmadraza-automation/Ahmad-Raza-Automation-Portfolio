@@ -20,7 +20,6 @@
             --accent-light: #818cf8;
             --accent-glow: rgba(99, 102, 241, 0.25);
             --green: #22c55e;
-            --orange: #f59e0b;
             --gold: #fbbf24;
             --gold-glow: rgba(251, 191, 36, 0.25);
         }
@@ -30,23 +29,37 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden;
         }
+        a { color: inherit; }
         .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
         .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; }
         .orb-1 { width: 500px; height: 500px; background: var(--accent); top: -150px; right: -100px; }
         .orb-2 { width: 400px; height: 400px; background: #8b5cf6; bottom: 20%; left: -150px; opacity: 0.25; }
+
+        /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 2rem;
-            background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center;
         }
-        .logo { font-weight: 700; font-size: 1.25rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .logo { font-weight: 700; font-size: 1.25rem; color: var(--text); text-decoration: none; }
         .logo span { color: var(--accent-light); }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+            transition: color 0.2s; cursor: pointer;
+        }
         .nav-links a:hover { color: var(--accent-light); }
-        .nav-cta { background: var(--accent); color: white !important; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 600; }
-        .nav-cta:hover { background: var(--accent-light); color: white !important; }
+        .nav-cta {
+            background: var(--accent); color: white !important; padding: 0.5rem 1.25rem;
+            border-radius: 8px; font-weight: 600;
+        }
+        .nav-cta:hover { background: var(--accent-light); }
+        .menu-btn {
+            display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer;
+        }
+
+        /* HERO */
         .hero {
             position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center;
             padding: 8rem 2rem 4rem; max-width: 1100px; margin: 0 auto;
@@ -71,29 +84,35 @@
             border-radius: 10px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
         }
         .btn-primary { background: var(--accent); color: white; box-shadow: 0 0 30px var(--accent-glow); }
-        .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 0 40px var(--accent-glow); }
+        .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
         .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
         .btn-secondary:hover { border-color: var(--accent); color: var(--accent-light); background: rgba(99, 102, 241, 0.08); }
         .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
-        .stat-num { font-size: 1.75rem; font-weight: 700; color: var(--text); }
+        .stat-num { font-size: 1.75rem; font-weight: 700; }
         .stat-label { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* SECTIONS */
         section { position: relative; z-index: 1; padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
         .section-header { margin-bottom: 3rem; }
         .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-light); margin-bottom: 0.75rem; display: block; }
         .section-title { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; }
+
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
         .about-text p { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 1.05rem; }
         .about-text p strong { color: var(--text); }
         .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
         .skill-tag {
             background: var(--bg-card); border: 1px solid var(--border); padding: 0.5rem 1rem;
-            border-radius: 8px; font-size: 0.9rem; font-weight: 500; color: var(--text); transition: all 0.2s;
+            border-radius: 8px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; cursor: default;
         }
         .skill-tag:hover { border-color: var(--accent); background: rgba(99, 102, 241, 0.1); color: var(--accent-light); }
+
+        /* PROJECT CARDS — fully clickable */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
         .project-card {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem;
             transition: all 0.25s; display: flex; flex-direction: column; height: 100%; position: relative;
+            text-decoration: none; color: inherit; cursor: pointer;
         }
         .project-card:hover {
             border-color: rgba(99, 102, 241, 0.5); background: var(--bg-card-hover);
@@ -109,7 +128,7 @@
             position: absolute; top: 14px; right: 14px;
             background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1200;
             font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; padding: 0.28rem 0.7rem;
-            border-radius: 6px; text-transform: uppercase; box-shadow: 0 2px 12px rgba(251, 191, 36, 0.4);
+            border-radius: 6px; text-transform: uppercase;
         }
         .project-icon {
             width: 44px; height: 44px; background: rgba(99, 102, 241, 0.15); border-radius: 10px;
@@ -129,11 +148,13 @@
         }
         .project-card.vip .tag { background: rgba(251, 191, 36, 0.15); color: var(--gold); }
         .project-link {
-            color: var(--accent-light); text-decoration: none; font-weight: 600; font-size: 0.9rem;
-            display: inline-flex; align-items: center; gap: 0.35rem; transition: gap 0.2s;
+            color: var(--accent-light); font-weight: 600; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 0.35rem;
         }
-        .project-link:hover { gap: 0.6rem; }
         .project-card.vip .project-link { color: var(--gold); }
+        .project-card:hover .project-link { gap: 0.6rem; }
+
+        /* CONTACT */
         .contact-box {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
             padding: 3rem; text-align: center; max-width: 600px; margin: 0 auto;
@@ -147,13 +168,23 @@
             border-radius: 10px; color: var(--accent-light); text-decoration: none; font-weight: 500; transition: all 0.2s;
         }
         .contact-link:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
         footer {
             position: relative; z-index: 1; text-align: center; padding: 2rem;
             border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem;
         }
+        footer a { color: var(--accent-light); text-decoration: none; }
+
+        /* MOBILE */
         @media (max-width: 768px) {
             nav { padding: 1rem; }
-            .nav-links { display: none; }
+            .menu-btn { display: block; }
+            .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(10, 10, 15, 0.98); flex-direction: column; padding: 1.5rem;
+                border-bottom: 1px solid var(--border); gap: 1.25rem;
+            }
+            .nav-links.open { display: flex; }
             .hero { padding: 7rem 1.25rem 3rem; }
             .about-grid { grid-template-columns: 1fr; gap: 2rem; }
             section { padding: 3.5rem 1.25rem; }
@@ -169,8 +200,9 @@
     </div>
 
     <nav>
-        <a href="#" class="logo">Ahmad<span>.</span>Raza</a>
-        <ul class="nav-links">
+        <a href="#" class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Ahmad<span>.</span>Raza</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+        <ul class="nav-links" id="navLinks">
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact" class="nav-cta">Contact</a></li>
@@ -191,10 +223,10 @@
             </p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn btn-primary">View Projects →</a>
-                <a href="https://github.com/ahmadraza-automation" target="_blank" class="btn btn-secondary">GitHub</a>
+                <a href="https://github.com/ahmadraza-automation" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
             </div>
             <div class="hero-stats">
-                <div class="stat"><div class="stat-num">11+</div><div class="stat-label">Projects</div></div>
+                <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Projects</div></div>
                 <div class="stat"><div class="stat-num">Python</div><div class="stat-label">Primary Stack</div></div>
                 <div class="stat"><div class="stat-num">Playwright</div><div class="stat-label">Expert</div></div>
             </div>
@@ -209,7 +241,7 @@
         <div class="about-grid">
             <div class="about-text">
                 <p>I'm a <strong>Python Automation Engineer</strong> based in Pakistan. I specialize in building robust web scrapers and browser automation tools using <strong>Playwright</strong> and <strong>Selenium</strong>.</p>
-                <p>My focus is on creating <strong>reliable, fast and maintainable</strong> solutions — from job scrapers and lead generation tools to volunteering opportunity extractors with full pagination support.</p>
+                <p>My focus is on creating <strong>reliable, fast and maintainable</strong> solutions — from job scrapers and lead generation tools to data extraction pipelines with clean Excel/CSV export.</p>
                 <p>I love clean code, proper error handling, and turning messy websites into structured data.</p>
             </div>
             <div>
@@ -231,7 +263,8 @@
         </div>
         <div class="projects-grid">
 
-            <div class="project-card vip">
+            <!-- VIP: Whitecoat -->
+            <a class="project-card vip" href="https://wispy-cherry-fbb6.arjafri347.workers.dev/" target="_blank" rel="noopener">
                 <span class="vip-badge">★ VIP</span>
                 <div class="project-icon">🩺</div>
                 <h3>Whitecoat Diaries</h3>
@@ -239,10 +272,11 @@
                 <div class="project-tags">
                     <span class="tag">HTML/CSS</span><span class="tag">Cloudflare Workers</span><span class="tag">Live Site</span><span class="tag">Client Work</span>
                 </div>
-                <a href="https://wispy-cherry-fbb6.arjafri347.workers.dev/" target="_blank" class="project-link">View Live →</a>
-            </div>
+                <span class="project-link">View Live →</span>
+            </a>
 
-            <div class="project-card vip">
+            <!-- VIP: Bayt -->
+            <a class="project-card vip" href="https://github.com/ahmadraza-automation/Bayt-Python-Jobs-Scraper" target="_blank" rel="noopener">
                 <span class="vip-badge">★ VIP</span>
                 <div class="project-icon">🐍</div>
                 <h3>Bayt Python Jobs Scraper</h3>
@@ -251,80 +285,80 @@
                 <div class="project-tags">
                     <span class="tag">Playwright</span><span class="tag">Async</span><span class="tag">Pagination</span><span class="tag">Excel</span><span class="tag">281 Jobs</span>
                 </div>
-                <a href="https://github.com/ahmadraza-automation/Bayt-Python-Jobs-Scraper" target="_blank" class="project-link">View Repo →</a>
-            </div>
+                <span class="project-link">View Repo →</span>
+            </a>
 
-            <div class="project-card">
-                <div class="project-icon">🌐</div>
-                <h3>Playwright Web Scraper</h3>
-                <p>Async Playwright scraper with automatic pagination for volunteering opportunities. Extracts structured data and saves to CSV.</p>
-                <div class="project-tags"><span class="tag">Playwright</span><span class="tag">Async</span><span class="tag">Pandas</span></div>
-                <a href="https://github.com/ahmadraza-automation/playwright-web-scraper" target="_blank" class="project-link">View Repo →</a>
-            </div>
+            <!-- VSCO -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/vsco-complete-scraper" target="_blank" rel="noopener">
+                <div class="project-icon">📸</div>
+                <h3>VSCO Complete Scraper</h3>
+                <p>Professional Playwright scraper that extracts all material (images, videos, links, meta, CSS backgrounds, network media) from VSCO with clean CSV + Excel export.</p>
+                <div class="project-tags"><span class="tag">Playwright</span><span class="tag">Media</span><span class="tag">Excel</span></div>
+                <span class="project-link">View Repo →</span>
+            </a>
 
-            <div class="project-card">
+            <!-- RadioEchoes -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/radioechoes-scraper" target="_blank" rel="noopener">
+                <div class="project-icon">📻</div>
+                <h3>RadioEchoes Scraper</h3>
+                <p>High-performance Playwright scraper for RadioEchoes.com with concurrency, resume support and Excel export.</p>
+                <div class="project-tags"><span class="tag">Playwright</span><span class="tag">Async</span><span class="tag">Resume</span></div>
+                <span class="project-link">View Repo →</span>
+            </a>
+
+            <!-- LinkedIn -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/LinkedIn-Marketing-Leads-Scraper" target="_blank" rel="noopener">
                 <div class="project-icon">💼</div>
                 <h3>LinkedIn Marketing Leads Scraper</h3>
                 <p>Playwright-based async scraper to extract Marketing Manager leads from LinkedIn. Supports manual login, auto-scrolling & CSV export.</p>
                 <div class="project-tags"><span class="tag">Playwright</span><span class="tag">LinkedIn</span><span class="tag">Leads</span></div>
-                <a href="https://github.com/ahmadraza-automation/LinkedIn-Marketing-Leads-Scraper" target="_blank" class="project-link">View Repo →</a>
-            </div>
+                <span class="project-link">View Repo →</span>
+            </a>
 
-            <div class="project-card">
+            <!-- Indeed -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/indeed-python-job-scraper" target="_blank" rel="noopener">
                 <div class="project-icon">🔍</div>
                 <h3>Indeed Python Job Scraper</h3>
-                <p>Playwright scraper that extracts Python Developer jobs from Indeed and exports them cleanly to CSV.</p>
+                <p>Playwright scraper that extracts Python Developer jobs from Indeed and exports them cleanly to CSV + Excel.</p>
                 <div class="project-tags"><span class="tag">Playwright</span><span class="tag">Indeed</span><span class="tag">Jobs</span></div>
-                <a href="https://github.com/ahmadraza-automation/indeed-python-job-scraper" target="_blank" class="project-link">View Repo →</a>
-            </div>
+                <span class="project-link">View Repo →</span>
+            </a>
 
-            <div class="project-card">
-                <div class="project-icon">📡</div>
-                <h3>API Calling Project</h3>
-                <p>Fetches random users from RandomUser API, validates emails with regex, and exports clean data to JSON + CSV using Pandas.</p>
-                <div class="project-tags"><span class="tag">Requests</span><span class="tag">Pandas</span><span class="tag">Regex</span></div>
-                <a href="https://github.com/ahmadraza-automation/API-Calling-Project" target="_blank" class="project-link">View Repo →</a>
-            </div>
-
-            <div class="project-card">
-                <div class="project-icon">🛠️</div>
-                <h3>Mini DevTools Analyzer</h3>
-                <p>Interactive CLI tool that analyzes API URLs, headers, cookies, JSON, CSS selectors, XPath and DOM snippets — like a mini DevTools.</p>
-                <div class="project-tags"><span class="tag">CLI</span><span class="tag">JSON</span><span class="tag">XPath</span></div>
-                <a href="https://github.com/ahmadraza-automation/Mini-DevTools-Analyzer" target="_blank" class="project-link">View Repo →</a>
-            </div>
-
-            <div class="project-card">
+            <!-- Books -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/Books-Companies-Scraper" target="_blank" rel="noopener">
                 <div class="project-icon">📚</div>
                 <h3>Books / Companies Scraper</h3>
-                <p>BeautifulSoup scraper that extracts product data from books.toscrape.com and exports to JSON, CSV and Excel with logging.</p>
+                <p>BeautifulSoup scraper that extracts product data from books.toscrape.com and exports to JSON, CSV and Excel with proper encoding.</p>
                 <div class="project-tags"><span class="tag">BeautifulSoup</span><span class="tag">Pandas</span><span class="tag">Excel</span></div>
-                <a href="https://github.com/ahmadraza-automation/Books-Companies-Scraper" target="_blank" class="project-link">View Repo →</a>
-            </div>
+                <span class="project-link">View Repo →</span>
+            </a>
 
-            <div class="project-card">
+            <!-- Mini DevTools -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/Mini-DevTools-Analyzer" target="_blank" rel="noopener">
+                <div class="project-icon">🛠️</div>
+                <h3>Mini DevTools Analyzer</h3>
+                <p>Interactive CLI tool that analyzes API URLs, headers, cookies, JSON, CSS selectors, XPath and DOM snippets.</p>
+                <div class="project-tags"><span class="tag">CLI</span><span class="tag">JSON</span><span class="tag">XPath</span></div>
+                <span class="project-link">View Repo →</span>
+            </a>
+
+            <!-- ATM -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/ATM-Machine-Simulation" target="_blank" rel="noopener">
                 <div class="project-icon">🏧</div>
                 <h3>ATM Machine Simulation</h3>
                 <p>Clean Python console ATM with check balance, withdraw, deposit and solid input validation + error handling.</p>
                 <div class="project-tags"><span class="tag">Python</span><span class="tag">CLI</span><span class="tag">Error Handling</span></div>
-                <a href="https://github.com/ahmadraza-automation/ATM-Machine-Simulation" target="_blank" class="project-link">View Repo →</a>
-            </div>
+                <span class="project-link">View Repo →</span>
+            </a>
 
-            <div class="project-card">
-                <div class="project-icon">📊</div>
-                <h3>Volunteer Opportunities Data</h3>
-                <p>Structured CSV dataset of volunteer opportunities in Australia (Northern Territory) generated via scraping.</p>
-                <div class="project-tags"><span class="tag">CSV</span><span class="tag">Data</span><span class="tag">Australia</span></div>
-                <a href="https://github.com/ahmadraza-automation/Volunteer-Opportunities-Data" target="_blank" class="project-link">View Repo →</a>
-            </div>
-
-            <div class="project-card">
-                <div class="project-icon">❤️</div>
-                <h3>Welfare Website</h3>
-                <p>Modern welfare platform concept to connect donors, volunteers and people in need. Manage donations & campaigns.</p>
-                <div class="project-tags"><span class="tag">Web</span><span class="tag">Community</span><span class="tag">Concept</span></div>
-                <a href="https://github.com/ahmadraza-automation/Welfare-Website" target="_blank" class="project-link">View Repo →</a>
-            </div>
+            <!-- Playwright Web Scraper -->
+            <a class="project-card" href="https://github.com/ahmadraza-automation/playwright-web-scraper" target="_blank" rel="noopener">
+                <div class="project-icon">🌐</div>
+                <h3>Playwright Web Scraper</h3>
+                <p>Async Playwright scraper with automatic pagination for volunteering opportunities. Extracts structured data and saves to CSV.</p>
+                <div class="project-tags"><span class="tag">Playwright</span><span class="tag">Async</span><span class="tag">Pandas</span></div>
+                <span class="project-link">View Repo →</span>
+            </a>
 
         </div>
     </section>
@@ -335,13 +369,42 @@
             <p>Looking for an automation engineer or need a reliable scraper built? Reach out!</p>
             <div class="contact-links">
                 <a href="mailto:arjafri347@gmail.com" class="contact-link">✉️ Email</a>
-                <a href="https://github.com/ahmadraza-automation" target="_blank" class="contact-link">GitHub</a>
+                <a href="https://github.com/ahmadraza-automation" target="_blank" rel="noopener" class="contact-link">GitHub</a>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 Ahmad Raza · Built with ❤️ · <a href="https://github.com/ahmadraza-automation/Ahmad-Raza-Automation-Portfolio" style="color: var(--accent-light); text-decoration: none;">Source</a></p>
+        <p>© 2026 Ahmad Raza · Built with ❤️ · <a href="https://github.com/ahmadraza-automation/Ahmad-Raza-Automation-Portfolio" target="_blank" rel="noopener">Source</a></p>
     </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // Smooth scroll for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
